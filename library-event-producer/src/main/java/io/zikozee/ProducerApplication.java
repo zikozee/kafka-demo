@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LibraryEventProducerApplication {
+public class ProducerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LibraryEventProducerApplication.class, args);
+        SpringApplication.run(ProducerApplication.class, args);
     }
 
 }
