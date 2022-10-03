@@ -1,6 +1,8 @@
 package io.zikozee.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.zikozee.domain.LibraryEvent;
+import io.zikozee.producer.LibraryEventProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LibraryEventController {
 
-    @PostMapping(path = "v1/libraryEvent")
-    public ResponseEntity<LibraryEvent> postLibraryEvent(@RequestBody LibraryEvent libraryEvent){
-        // invoke Kafka producer
+    private final LibraryEventProducer producer;
 
+    @PostMapping(path = "v1/libraryEvent")
+    public ResponseEntity<LibraryEvent> postLibraryEvent(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException {
+        // invoke Kafka producer
+        producer.sendLibraryEvent(libraryEvent);
         return ResponseEntity.status(HttpStatus.CREATED).body(libraryEvent);
     }
 

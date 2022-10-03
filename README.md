@@ -21,6 +21,10 @@ spring:
       value-serializer:  org.apache.kafka.common.serialization.String.Serializer
 ```
 
+## Producer
+- in producer package, LibraryEventProducer
+- we use sendDefault, since we already hardcoded the topic to be used in the yaml property
+
 
 ### KAFKA ADMIN
 - setting up admin for kafka is not recommended
