@@ -36,6 +36,15 @@ public class LibraryEventController {
         return ResponseEntity.status(HttpStatus.CREATED).body(libraryEvent);
     }
 
+    @PostMapping(path = "v1/libraryEvent/using-producer-record")  // using ProducerRecord
+    public ResponseEntity<LibraryEvent> postLibraryEventApproach2(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException {
+        // invoke Kafka producer
+        log.info(">>>>>>>> before sendLibrary event");
+        producer.sendLibraryEvent_Approach2(libraryEvent);
+        log.info(">>>>>>>> after sendLibrary event");
+        return ResponseEntity.status(HttpStatus.CREATED).body(libraryEvent);
+    }
+
     @PostMapping(path = "v1/libraryEvent/synchronous")
     public ResponseEntity<LibraryEvent> postLibraryEventSynchronous(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException, ExecutionException, InterruptedException, TimeoutException {
         // invoke Kafka producer
