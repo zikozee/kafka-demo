@@ -2,6 +2,7 @@ package io.zikozee.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.zikozee.domain.LibraryEvent;
+import io.zikozee.domain.LibraryEventType;
 import io.zikozee.producer.LibraryEventProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ public class LibraryEventController {
     public ResponseEntity<LibraryEvent> postLibraryEvent(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException {
         // invoke Kafka producer
         log.info(">>>>>>>> before sendLibrary event");
+        libraryEvent.setLibraryEventType(LibraryEventType.NEW);
         producer.sendLibraryEvent(libraryEvent);
         log.info(">>>>>>>> after sendLibrary event");
         return ResponseEntity.status(HttpStatus.CREATED).body(libraryEvent);
@@ -38,10 +40,8 @@ public class LibraryEventController {
 
     @PostMapping(path = "v1/libraryEvent/using-producer-record")  // using ProducerRecord
     public ResponseEntity<LibraryEvent> postLibraryEventApproach2(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException {
-        // invoke Kafka producer
-        log.info(">>>>>>>> before sendLibrary event");
+        libraryEvent.setLibraryEventType(LibraryEventType.NEW);
         producer.sendLibraryEvent_Approach2(libraryEvent);
-        log.info(">>>>>>>> after sendLibrary event");
         return ResponseEntity.status(HttpStatus.CREATED).body(libraryEvent);
     }
 
@@ -49,6 +49,7 @@ public class LibraryEventController {
     public ResponseEntity<LibraryEvent> postLibraryEventSynchronous(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException, ExecutionException, InterruptedException, TimeoutException {
         // invoke Kafka producer
         log.info(">>>>>>>> before sendLibrary event");
+        libraryEvent.setLibraryEventType(LibraryEventType.NEW);
         SendResult<Integer, String> sendResult = producer.sendLibraryEventSynchronous(libraryEvent);
         log.info("SendResult is {}", sendResult.toString());
         log.info(">>>>>>>> after sendLibrary event");
