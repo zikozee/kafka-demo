@@ -28,4 +28,14 @@ spring:
 
 ### KAFKA ADMIN
 - setting up admin for kafka is not recommended
-- i.e spring.kafka.admin. ...
+- i.e spring.kafka.admin. ..
+
+### USing embeddedKafka for Integration test
+- @TestPropertySource(properties = {"spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}"})
+- where **spring.kafka.producer.bootstrap-servers** is the property for the broker's host and port
+- **spring.embedded.kafka.brokers** is that of the  embeddedKafka's host and port
+- do shift shift and type **EnbeddedKafkaBroker** to see property
+
+- also we override the admin.properties
+
+- we can also wire in a consumer using KafkaUtils to do an assertion
