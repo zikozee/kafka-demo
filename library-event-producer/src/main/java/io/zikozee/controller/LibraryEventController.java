@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -29,7 +30,7 @@ public class LibraryEventController {
     private final LibraryEventProducer producer;
 
     @PostMapping(path = "v1/libraryEvent")
-    public ResponseEntity<LibraryEvent> postLibraryEvent(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException {
+    public ResponseEntity<LibraryEvent> postLibraryEvent(@RequestBody @Valid LibraryEvent libraryEvent) throws JsonProcessingException {
         // invoke Kafka producer
         log.info(">>>>>>>> before sendLibrary event");
         libraryEvent.setLibraryEventType(LibraryEventType.NEW);
