@@ -42,3 +42,19 @@ spring:
 
 ### Ordering
 - ordering always happens at partition level hence if you want ordering, send a unique key per request
+
+
+## KAFKA PRODUCER CONFIGURATION - [Documentation](https://kafka.apache.org/documentation/#producerconfigs)
+- acks
+- possible values: 0, 1 and all(-1)
+- acks = 1 -> guarantees message is written to leader (Default)
+- acks = all -> guarantees message is written to a leader and to all replicas
+- acks = 0 -> no guarantee (Not recommended)
+
+- retries
+- possible Integer values = [0 - 2147483647]
+- in Spring Kafka, the default value is -> 2147483647 (max)
+
+- retry.backoff.ms
+- possible Integer value in millisecond (ms)
+- Default value -> 100ms
