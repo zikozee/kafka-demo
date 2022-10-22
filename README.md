@@ -39,3 +39,6 @@ spring:
 - also we override the admin.properties
 
 - we can also wire in a consumer using KafkaUtils to do an assertion
+
+### Ordering
+- ordering always happens at partition level hence if you want ordering, send a unique key per request
